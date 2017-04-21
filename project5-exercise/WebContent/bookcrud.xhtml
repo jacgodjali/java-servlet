@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>Refresh-safe CRUD</title>
+</head>
+
+<body>
+
+		<h3>Add book details</h3>
+		<h:form>
+			<p>
+				ISBN:
+				<h:inputText id="isbn" value="#{bookcrud.item.isbn}" required="true" requiredMessage=" ISBN field is mandatory"> </h:inputText>
+				<h:message for="isbn" style="color: red"/>
+			</p>
+			<p>
+				Title:
+				<h:inputText id="title" value="#{bookcrud.item.title}" required="true" requiredMessage=" Title field is mandatory"> </h:inputText>
+				<h:message for="title" style="color: red"/>
+			</p>
+			<p>
+				Author:
+				<h:inputText value="#{bookcrud.item.author}" />
+			</p>
+			<p>
+				Publisher:
+				<h:inputText value="#{bookcrud.item.publisher}" />
+			</p>
+			<p>
+				Price: $
+				<h:inputText id="price" value="#{bookcrud.item.price}" required="true" requiredMessage=" Price field is mandatory"> </h:inputText>
+			<h:message for="price" style="color: red"/>
+			</p>
+			<p>
+				<h:commandButton value="add" action="#{bookcrud.add}" />
+				<h:commandButton value="save" action="#{bookcrud.saveEdit}" />
+				<h:commandButton value="reset" action="#{bookcrud.resetAdd}" />
+			</p>
+		</h:form>
+	
+	
+	<h:form rendered="#{not empty bookcrud.list}">
+	<h3>Book List</h3>
+		<h:dataTable value="#{bookcrud.list}" var="item">
+			<h:column>
+				<f:facet name="header">ID</f:facet>#{item.id}</h:column>
+			<h:column>
+				<f:facet name="header">ISBN</f:facet>#{item.isbn}</h:column>
+			<h:column>
+				<f:facet name="header">Title</f:facet>#{item.title}</h:column>
+			<h:column>
+				<f:facet name="header">Author</f:facet>#{item.author}</h:column>
+			<h:column>
+				<f:facet name="header">Publisher</f:facet>#{item.publisher}</h:column>
+			<h:column>
+				<f:facet name="header">Price</f:facet>$#{item.price}</h:column>
+			<h:column>
+				<h:commandButton value="edit" action="#{bookcrud.edit(item)}" />
+			</h:column>
+			<h:column>
+				<h:commandButton value="delete" action="#{bookcrud.delete(item)}" />
+			</h:column>
+		</h:dataTable>
+	</h:form>
+
+</body>
+</html>

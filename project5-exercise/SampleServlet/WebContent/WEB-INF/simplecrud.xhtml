@@ -1,0 +1,55 @@
+&lt;!DOCTYPE html>
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
+
+      xmlns:f="http://java.sun.com/jsf/core"
+
+      xmlns:h="http://java.sun.com/jsf/html">
+&lt;head>
+    &lt;title>Simple CRUD&lt;/title>
+&lt;/head>
+    
+&lt;body>
+    &lt;h3>List students&lt;/h3>
+    &lt;h:form rendered="#{not empty simpleCrudBean.list}">
+        &lt;h:dataTable value="#{simpleCrudBean.list}" var="item">
+            &lt;h:column>&lt;f:facet name="header">ID&lt;/f:facet>#{item.id}&lt;/h:column>
+            &lt;h:column>&lt;f:facet name="header">Name&lt;/f:facet>#{item.name}&lt;/h:column>
+            &lt;h:column>
+                &lt;h:commandButton value="edit" action="#{simpleCrudBean.edit(item)}" />
+            &lt;/h:column>
+            &lt;h:column>
+                &lt;h:commandButton value="delete" action="#{simpleCrudBean.delete(item)}" />
+            &lt;/h:column>
+        &lt;/h:dataTable>
+    &lt;/h:form>
+    
+    &lt;h:panelGroup rendered="#{empty simpleCrudBean.list}">
+        &lt;p>No students! Please add students.&lt;/p>
+    &lt;/h:panelGroup>
+    
+    &lt;h:panelGroup rendered="#{!simpleCrudBean.edit}">
+        &lt;h3>Add student&lt;/h3>
+        &lt;h:form>
+            &lt;p>Name: &lt;h:inputText value="#{simpleCrudBean.item.name}" />&lt;/p>
+            &lt;p>
+                &lt;h:commandButton value="add" action="#{simpleCrudBean.add}" />
+                &lt;h:commandButton value="reset" action="#{simpleCrudBean.resetAdd}" />
+            &lt;/p>
+        &lt;/h:form>
+    &lt;/h:panelGroup>
+    
+    &lt;h:panelGroup rendered="#{simpleCrudBean.edit}">
+        &lt;h3>Edit student #{simpleCrudBean.item.id}&lt;/h3>
+        &lt;h:form>
+            &lt;p>Name: &lt;h:inputText value="#{simpleCrudBean.item.name}" />&lt;/p>
+            &lt;p>
+                &lt;h:commandButton value="save" action="#{simpleCrudBean.saveEdit}" />
+                &lt;h:commandButton value="cancel" action="#{simpleCrudBean.cancelEdit}" />
+            &lt;/p>
+        &lt;/h:form>
+    &lt;/h:panelGroup>
+    &lt;p>
+        &lt;a href="#{appUrlStore.baseUrl}">Go back to index&lt;/a>
+    &lt;/p>
+&lt;/body>
+&lt;/html>
